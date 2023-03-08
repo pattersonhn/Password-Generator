@@ -68,3 +68,13 @@ if (hasNumbers) {
 if (hasSpecial) {
   possibleCharacters = possibleCharacters.concat(specialCharacters);
 }
+
+// pick random cards out of new pool for length of password
+let finalPassword = ""
+for (let i = 0; i < numberOfCharacters; i++) {
+  let rng =[Math.floor(Math.random() * possibleCharacters.length)];
+  // or finalPassword += possibleCharacters[rng];
+  finalPassword = finalPassword + possibleCharacters[rng];
+}
+return finalPassword;
+};
