@@ -73,4 +73,23 @@ generatePassword = function() {
   }
   else if (upperCase) {
     userSelection = upperCaseLetters;
-  }}
+  }
+
+  let emptyArray = [];
+  for (let i = 0; i < generatePopup; i++) {
+    console.log(userSelection);
+    var mermaidSelection = userSelection[Math.floor(Math.random() * userSelection.length)];
+    emptyArray.push(mermaidSelection);
+  }
+  console.log(emptyArray.join(''));
+  return (emptyArray.join(''));
+}
+
+var generateBtn = document.querySelector("#generate");
+
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+}
+generateBtn.addEventListener("click", writePassword);
