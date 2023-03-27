@@ -1,80 +1,95 @@
-// Assignment code here
-function generatePassword() {
-  var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  var uppercaseCharacters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-  var lowercaseCharacters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  var specialCharacters = ['@', '%', '+', '\\', '/', "'", '!', '#', '$', '^', '?', ':', ',', ')', '(', '}', '{', ']', '[', '~', '-', '_', '.'];
-  var possibleCharacters = [];
+var upperCase;
+var lowerCase;
+var numbersQuesadilla;
+var specialCharactersTaco;
+
+let specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "{", "}", "[", "]", "=", "?", ">", "<", "/"];
+let numbers = ["1","2", "3", "4", "5", "6", "7", "8", "9", "0"];
+let lowercaseLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+let upperCaseLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+let specialCharactersAndNumbers = specialCharacters.concat(numbers);
+let allLetters = upperCaseLetters.concat(lowercaseLetters);
+
+generatePassword = function() {
+  generatePopup = parseInt(prompt('How many characters long do you want your password to be? Please enter a numeric value between 8 and 128.'));
+  while (!generatePopup || generatePopup < 8 || generatePopup > 128) {
+    alert('Please enter a number between 8 and 128');
+    generatePopup = parseInt(prompt('How many characters long do you want your password to be? Please enter a numeric value between 8 and 128.'));
+  }
+  if (generatePopup) {
+    upperCase = confirm('Do you want UPPERCASE letters?');
+    console.log(upperCase);
+    lowerCase = confirm('Do you want lowercase letters?');
+    console.log(lowerCase);
+    numbersQuesadilla = confirm('Do you want numbers');
+    console.log(numbersQuesadilla);
+    specialCharactersTaco = confirm('Do you want special characters?');
+    console.log(specialCharactersTaco);
+  }
+  if (!upperCase && !lowerCase && !numbersQuesadilla && !specialCharactersTaco) {
+    userSelection = alert("You entered no values, we can't make a password without values!");
+  }
+  else if (upperCase && lowerCase && numbersQuesadilla && specialCharactersTaco) {
+    userSelection = numbers.concat(specialCharacters, lowercaseLetters, upperCaseLetters);
+  }
+  else if (upperCase && lowerCase && numbersQuesadilla) {
+    userSelection = numbers.concat(lowercaseLetters, upperCaseLetters);
+  }
+  else if (upperCase && lowerCase && specialCharactersTaco) {
+    userSelection = specialCharacters.concat(lowercaseLetters, upperCaseLetters);
+  }
+  else if (upperCase && numbersQuesadilla && specialCharactersTaco) {
+    userSelection = numbers.concat(specialCharacters, upperCaseLetters);
+  }
+  else if (lowerCase && numbersQuesadilla && specialCharactersTaco) {
+    userSelection = numbers.concat(specialCharacters, lowercaseLetters);
+  }
+  else if (upperCase && lowerCase) {
+    userSelection = upperCaseLetters.concat(lowercaseLetters); 
+  }
+  else if (upperCase && numbersQuesadilla) {
+    userSelection = upperCaseLetters.concat(numbers);
+  }
+  else if (upperCase && specialCharactersTaco) {
+    userSelection = upperCaseLetters.concat(specialCharacters);
+  }
+  else if (numbersQuesadilla && lowerCase) {
+    userSelection = numbers.concat(lowercaseLetters);
+  }
+  else if (specialCharactersTaco && lowerCase) {
+    userSelection = specialCharacters.concat(lowercaseLetters);
+  }
+  else if (specialCharactersTaco && numbersQuesadilla) {
+    userSelection = specialCharacters.concat(numbers);
+  }
+  else if (numbersQuesadilla) {
+    userSelection = numbers;
+  }
+  else if (specialCharactersTaco) {
+    userSelection = specialCharacters;
+  }
+  else if (lowerCase) {
+    userSelection = lowercaseLetters;
+  }
+  else if (upperCase) {
+    userSelection = upperCaseLetters;
+  }
+
+  let emptyArray = [];
+  for (let i = 0; i < generatePopup; i++) {
+    console.log(userSelection);
+    var mermaidSelection = userSelection[Math.floor(Math.random() * userSelection.length)];
+    emptyArray.push(mermaidSelection);
+  }
+  console.log(emptyArray.join(''));
+  return (emptyArray.join(''));
 }
 
-// get input and validate
-numberOfCharacters = prompt("How many characters do you want in your password? Choose between 8-128 characters.");
-if (numberOfCharacters < 8 || numberOfCharacters > 128) {
-  return "Please choose a valid number of characters.";
-} else if (isNaN(numberOfCharacters)) {
-  numberOfCharacters = prompt("Please enter a valid number.");
-}
-else {
-  alert("Your password will be " + numberOfCharacters + " characters long.");
-  
-}
+var generateBtn = document.querySelector("#generate");
 
-hasLowercase = confirm("Do you want lowercase characters?");
-if (hasLowercase) {
-  var turnToLowercase = alert("Your password will have lowercase characters.");
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
 }
-else {
-  alert("Your password will NOT have lowercase characters.");
-}
-
-hasUppercase = confirm("Do you want uppercase characters?");
-if (hasUppercase) {
-  alert("Your password will have uppercase characters.");
-}
-else {
-  alert("Your password will NOT have uppercase characters.");
-}
-
-hasNumbers = confirm("Do you want to use numbers?");
-if (hasNumbers) {
-  alert("Your password will have numbers.");
-}
-else {
-  alert("Your password will NOT have numbers.");
-}
-
-hasSpecial = confirm("Do you want special characters?");
-if (hasSpecial) {
-  alert("Your password will have special characters.");
-}
-else {
-  alert("Your password will NOT have special characters.");
-}
-
-if (hasLowercase === false && hasUppercase === false && hasNumbers === false && hasSpecial === false) {
-  return "Please select at least one character type.";
-};
-
-// group selected characters
-if (hasLowercase) {
-  possibleCharacters = possibleCharacters.concat(lowercaseCharacters);
-}
-if (hasUppercase) {
-  possibleCharacters = possibleCharacters.concat(uppercaseCharacters);
-}
-if (hasNumbers) {
-  possibleCharacters = possibleCharacters.concat(numericCharacters);
-}
-if (hasSpecial) {
-  possibleCharacters = possibleCharacters.concat(specialCharacters);
-}
-
-// pick random cards out of new pool for length of password
-let finalPassword = ""
-for (let i = 0; i < numberOfCharacters; i++) {
-  let rng =[Math.floor(Math.random() * possibleCharacters.length)];
-  // or finalPassword += possibleCharacters[rng];
-  finalPassword = finalPassword + possibleCharacters[rng];
-}
-return finalPassword;
-};
+generateBtn.addEventListener("click", writePassword);
